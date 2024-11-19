@@ -1,0 +1,76 @@
+<div
+  class="flex flex-column sm:flex-row sm:align-items-center p-1 gap-2"
+  [ngClass]="{ 'border-top-1 surface-border': !first }"
+>
+  <div class="md:w-2rem relative">
+    <p-checkbox
+      [binary]="true"
+      inputId="binary"
+      [(ngModel)]="tarea.terminado"
+      (onChange)="marcaTerminado(tarea.id!)"
+    />
+  </div>
+  <div
+    class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-1"
+  >
+    <div
+      class="flex flex-row md:flex-column justify-content-between align-items-start gap-2"
+    >
+      <div>
+        <div
+          #nombreTarea
+          tabindex="-1"
+          [contentEditable]="tareaEditable"
+          class="text-md font-medium text-700 mt-2"
+          [ngClass]="{ strikethrough: tarea.terminado }" 
+          (keydown.escape)="cancelarModificacion()"
+          (keydown.enter)="modificarTarea(tarea.id!, $event)"
+        >
+          {{ tarea.nombre }}
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-row align-items-end gap-1">
+      @if(tareaEditable){
+      <p-button
+        icon="pi pi-save"
+        [rounded]="true"
+        [outlined]="true"
+        size="small"
+        (onClick)="modificarTarea(tarea.id!)"
+      />
+      <p-button
+        icon="pi pi-times"
+        [rounded]="true"
+        [outlined]="true"
+        size="small"
+        severity="danger"
+        (onClick)="cancelarModificacion()"
+      />
+      } @else {
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [outlined]="true"
+        size="small"
+        (onClick)="marcaEditable(tarea.id!)"
+      />
+      <p-button
+        icon="pi pi-trash"
+        [rounded]="true"
+        [outlined]="true"
+        size="small"
+        severity="danger"
+        (onClick)="eliminarTarea()"
+      />
+      }
+    </div>
+  </div>
+</div>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+  acceptLabel="Delete"
+  acceptButtonStyleClass="p-button-danger"
+  rejectLabel="Cancel"
+></p-confirmDialog>

@@ -1,0 +1,16 @@
+<div class="grid">
+  <div class="col-8 col-offset-2">
+    <app-todo-form (tareaCreada)="agregarTarea($event)"> </app-todo-form>
+  </div>
+</div>
+<div class="grid mt-2">
+  <div class="col-12">
+    <app-todo-list 
+    [tareas]="tareas"
+    (notifyTareaEliminada) = "handleTareaEliminada($event)"
+    (notifyTareaModificada) = "handleTareaModificada($event)"
+    >
+  </app-todo-list>
+  </div>
+</div>
+<p-toast position="bottom-center"></p-toast>
