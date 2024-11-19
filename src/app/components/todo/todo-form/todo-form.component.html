@@ -1,0 +1,27 @@
+<form [formGroup]="tareaForm">
+  <div class="grid mt-2">
+    <input
+      class="w-full"
+      #inputNuevaTarea
+      id="tarea"
+      pInputText
+      type="text"
+      [placeholder]="placeholderTarea"
+      (keydown.enter)="agregarTarea()"
+      formControlName="tarea"
+    />
+  </div>
+
+  <div class="grid mt-2 justify-content-end">
+    <p-button
+      type="button"
+      label="Agregar tarea"
+      (click)="agregarTarea()"
+      [disabled]="!tareaForm.valid"
+      icon="pi pi-check"
+      [rounded]="true"
+      [outlined]="true"
+      size="small"
+    ></p-button>
+  </div>
+</form>
