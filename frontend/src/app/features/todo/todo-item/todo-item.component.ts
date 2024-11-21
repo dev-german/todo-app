@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
-import { Tarea } from '../../../models/tarea';
+import { Tarea } from '../../../core/models/tarea/tarea';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
