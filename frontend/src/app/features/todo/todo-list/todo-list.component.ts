@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TodoItemComponent } from "../todo-item/todo-item.component";
-import { Tarea } from '../../../models/tarea';
+import { Tarea } from '../../../core/models/tarea/tarea';
 import { DataViewModule } from 'primeng/dataview';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -13,8 +13,8 @@ import { TagModule } from 'primeng/tag';
     TodoItemComponent,
     CommonModule,
     ButtonModule,
-    DataViewModule,    
-    TagModule    
+    DataViewModule,
+    TagModule
   ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.css'
@@ -27,7 +27,7 @@ export class TodoListComponent {
   @Output() notifyTareaTerminada = new EventEmitter<Tarea>();
 
   constructor(){
-    
+
   }
 
   handleNotifyTareaEliminada(tarea: Tarea) {

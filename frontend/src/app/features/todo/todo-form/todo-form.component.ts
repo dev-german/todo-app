@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { StyleClassModule } from 'primeng/styleclass';
-import { Tarea } from '../../../models/tarea';
+import { Tarea } from '../../../core/models/tarea/tarea';
 import { v4 as uuid } from 'uuid';
 
 @Component({
@@ -29,7 +29,7 @@ export class TodoFormComponent {
   tareaForm = new FormGroup({
     tarea: new FormControl('', Validators.required)
   });
-  
+
 
   agregarTarea(){
     this.nuevaTarea = {

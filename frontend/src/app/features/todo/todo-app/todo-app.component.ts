@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { TodoFormComponent } from "../todo-form/todo-form.component";
 import { TodoListComponent } from "../todo-list/todo-list.component";
-import { Tarea } from '../../../models/tarea';
+import { Tarea } from '../../../core/models/tarea/tarea';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
