@@ -4,11 +4,14 @@ import { TodoListComponent } from "../todo-list/todo-list.component";
 import { Tarea } from '../../../core/models/tarea/tarea';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { LogoutComponent } from '../../user/logout/logout.component';
+import { InfoComponent } from "../../user/info/info.component";
+
 
 @Component({
   selector: 'app-todo-app',
   standalone: true,
-  imports: [TodoFormComponent, TodoListComponent, ToastModule],
+  imports: [TodoFormComponent, TodoListComponent, ToastModule, LogoutComponent, InfoComponent],
   providers: [MessageService],
   templateUrl: './todo-app.component.html',
   styleUrl: './todo-app.component.css'
