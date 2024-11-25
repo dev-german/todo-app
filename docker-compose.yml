@@ -1,0 +1,46 @@
+services:
+  postgres-todo:
+    container_name: postgres-todo
+    image: postgres:16.4
+    environment:
+      POSTGRES_USER: todo
+      POSTGRES_PASSWORD: todo
+      POSTGRES_DB: todo
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-todo:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - db
+    restart: unless-stopped
+
+  todo-api:
+    container_name: todo-api
+    image: devgerman/todo-api
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-todo:5432/todo
+    ports:
+      - "8080:8080"
+    networks:
+      - db
+    depends_on:
+      - postgres-todo
+    restart: unless-stopped
+
+  todo-angular:
+    container_name: todo-angular
+    image: devgerman/todo-angular
+    ports:
+      - "4201:4200"
+    depends_on:
+      - todo-api
+    restart: unless-stopped
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  postgres-todo:
+

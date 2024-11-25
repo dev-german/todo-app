@@ -1,10 +1,11 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { StyleClassModule } from 'primeng/styleclass';
-import { Tarea } from '../../../core/models/tarea/tarea';
-import { v4 as uuid } from 'uuid';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+import {StyleClassModule} from 'primeng/styleclass';
+import {Category} from '../../../core/models/todo/category';
+import {Priority} from '../../../core/models/todo/priority';
+import {TodoRegistrationRequest} from '../../../core/models/todo/todo-registration-request';
 
 @Component({
   selector: 'app-todo-form',
@@ -20,28 +21,25 @@ import { v4 as uuid } from 'uuid';
   styleUrl: './todo-form.component.css'
 })
 export class TodoFormComponent {
-  @ViewChild('inputNuevaTarea') inputNuevaTarea!: ElementRef;
-  @Output() tareaCreada = new EventEmitter<Tarea>();
-  focoEnTarea = false;
-  placeholderTarea = 'Agrega una tarea...'
-  nuevaTarea: Tarea | null = null
+  @ViewChild('inputNewTodo') inputNewTodo!: ElementRef;
+  @Output() todoCreated = new EventEmitter<TodoRegistrationRequest>();
+  newTodo: TodoRegistrationRequest | null = null
 
-  tareaForm = new FormGroup({
-    tarea: new FormControl('', Validators.required)
+  todoForm = new FormGroup({
+    todo: new FormControl('', Validators.required)
   });
 
 
-  agregarTarea(){
-    this.nuevaTarea = {
-      id: uuid(),
-      nombre: this.tareaForm.value.tarea!,
-      terminado: false,
-      fechaCreacion: new Date()
+  newTask(){
+    this.newTodo = {
+      description: this.todoForm.value.todo!,
+      category: Category.HOME,
+      priority: Priority.MEDIUM
     }
-    console.log(this.nuevaTarea)
-    this.tareaCreada.emit(this.nuevaTarea);
-    this.nuevaTarea = {}
-    this.tareaForm.setValue({tarea: ''})
-    this.inputNuevaTarea.nativeElement.focus();
+
+    this.todoCreated.emit(this.newTodo);
+    this.newTodo = {}
+    this.todoForm.setValue({todo: ''})
+    this.inputNewTodo.nativeElement.focus();
   }
 }

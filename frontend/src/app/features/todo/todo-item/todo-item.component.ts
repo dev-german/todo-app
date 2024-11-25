@@ -1,12 +1,13 @@
-import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
-import { Tarea } from '../../../core/models/tarea/tarea';
-import { CheckboxModule } from 'primeng/checkbox';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { DataViewModule } from 'primeng/dataview';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
+import {Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild} from '@angular/core';
+import {CheckboxModule} from 'primeng/checkbox';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {DataViewModule} from 'primeng/dataview';
+import {ButtonModule} from 'primeng/button';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+import {Todo} from '../../../core/models/todo/todo';
+import {TodoUpdateRequest} from '../../../core/models/todo/todo-update-request';
 
 @Component({
   selector: 'app-todo-item',
@@ -24,22 +25,25 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class TodoItemComponent {
   confirmationService = inject(ConfirmationService);
-  @ViewChild('nombreTarea') nombreTarea!: ElementRef;
-  @Input() tarea: Tarea = {}
+  @ViewChild('todoName') todoName!: ElementRef;
+  @Input() todo: Todo = {}
   @Input() first = false
-  @Output() tareaEliminada = new EventEmitter<Tarea>()
-  @Output() tareaModificada = new EventEmitter<Tarea>()
-  @Output() tareaTerminada = new EventEmitter<Tarea>()
-  tareaEditable = false
+  @Output() todoDeleted = new EventEmitter<Todo>()
+  @Output() todoUpdated = new EventEmitter<TodoUpdateRequest>()
+  @Output() todoIsCompleted = new EventEmitter<TodoUpdateRequest>()
+  todoUpdateRequest: TodoUpdateRequest = {}
+  editableTodo = false
 
-  marcaTerminado(id: string){
-    console.log(this.tarea)
-    this.tareaTerminada.emit(this.tarea);
+  markAsDone(){
+    this.todoUpdateRequest.id = this.todo.id
+    this.todoUpdateRequest.isCompleted = this.todo.isCompleted
+    this.todoIsCompleted.emit(this.todoUpdateRequest);
+    this.todoUpdateRequest = {}
   }
 
-  marcaEditable(id: string){
-    this.tareaEditable = true
-    const div = this.nombreTarea.nativeElement;
+  markAsEditable(){
+    this.editableTodo = true
+    const div = this.todoName.nativeElement;
     div.focus();
 
     const selection = window.getSelection();
@@ -51,38 +55,28 @@ export class TodoItemComponent {
     selection?.addRange(range);
   }
 
-  modificarTarea(id: string, event?: any){
-    console.log('evento', event.target.innerText)
-    this.tarea.nombre = event.target.innerText
-    this.tareaEditable = false
-    this.nombreTarea.nativeElement.blur();
-    this.tareaModificada.emit(this.tarea);
+  updateTask(event?: any){
+    this.todoUpdateRequest.id = this.todo.id
+    this.todoUpdateRequest.description = event.target.innerText
+    this.todoUpdateRequest.category = this.todo.category
+    this.todoUpdateRequest.priority = this.todo.priority
+    this.editableTodo = false
+    this.todoName.nativeElement.blur();
+    this.todoUpdated.emit(this.todoUpdateRequest);
+    this.todoUpdateRequest = {}
   }
 
-
-  cancelarModificacion(){
-    this.tareaEditable = false
-    this.nombreTarea.nativeElement.blur();
-    console.log('cancela edicion')
+  cancelModify(){
+    this.editableTodo = false
+    this.todoName.nativeElement.blur();
   }
 
-  eliminarTarea(){
+  deleteTask(){
     this.confirmationService.confirm({
       header: 'Delete task',
-      message: `Are you sure you want to delete <strong>${this.tarea.nombre}</strong>?`,
+      message: `Are you sure you want to delete <strong>${this.todo.description}</strong>?`,
       accept: () => {
-        console.log('eliminando tarea', this.tarea.nombre)
-        this.tareaEliminada.emit(this.tarea);
-        // this.customerService.delete(customer.id).subscribe({
-        //   next: () => {
-        //     this.findAllCustomers();
-        //     this.messageService.add({
-        //       severity: 'error',
-        //       summary: 'Customer deleted',
-        //       detail: `Customer ${customer.name} was successfully deleted`,
-        //     });
-        //   },
-        // });
+        this.todoDeleted.emit(this.todo);
       }
     });
   }

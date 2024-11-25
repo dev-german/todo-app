@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TodoItemComponent } from "../todo-item/todo-item.component";
-import { Tarea } from '../../../core/models/tarea/tarea';
 import { DataViewModule } from 'primeng/dataview';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
+import {Todo} from '../../../core/models/todo/todo';
+import {TodoUpdateRequest} from '../../../core/models/todo/todo-update-request';
 
 @Component({
   selector: 'app-todo-list',
@@ -21,24 +22,23 @@ import { TagModule } from 'primeng/tag';
 })
 export class TodoListComponent {
 
-  @Input() tareas: Tarea[] = [];
-  @Output() notifyTareaEliminada = new EventEmitter<Tarea>();
-  @Output() notifyTareaModificada = new EventEmitter<Tarea>();
-  @Output() notifyTareaTerminada = new EventEmitter<Tarea>();
+  @Input() todos: Todo[] = [];
+  @Output() notifyTodoDeleted = new EventEmitter<Todo>();
+  @Output() notifyTodoUpdated = new EventEmitter<TodoUpdateRequest>();
+  @Output() notifyTodoIsCompleted = new EventEmitter<TodoUpdateRequest>();
 
   constructor(){
-
   }
 
-  handleNotifyTareaEliminada(tarea: Tarea) {
-    this.notifyTareaEliminada.emit(tarea);
+  handleNotifyTodoDeleted(todo: Todo) {
+    this.notifyTodoDeleted.emit(todo);
   }
 
-  handleNotifyTareaModificada(tarea: Tarea) {
-    this.notifyTareaModificada.emit(tarea);
+  handleNotifyTodoUpdated(todoUpdateRequest: TodoUpdateRequest) {
+    this.notifyTodoUpdated.emit(todoUpdateRequest);
   }
 
-  handleNotifyTareaTerminada(tarea: Tarea) {
-    this.notifyTareaTerminada.emit(tarea);
+  handleNotifyTodoIsCompleted(todoUpdateRequest: TodoUpdateRequest) {
+    this.notifyTodoIsCompleted.emit(todoUpdateRequest);
   }
 }

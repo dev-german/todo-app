@@ -60,3 +60,5 @@ frontend/.vscode/*
 
 .angular
 /frontend/.angular/
+
+*.*~

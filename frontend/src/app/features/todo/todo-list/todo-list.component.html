@@ -1,20 +1,20 @@
 <div class="grid">
   <div class="col-8 col-offset-2">
-    <p-dataView #dv [value]="tareas" emptyMessage="No hay tareas">
-      <ng-template pTemplate="list" let-tareas>
+    <p-dataView #dv [value]="todos" emptyMessage="No hay tareas">
+      <ng-template pTemplate="list" let-todos>
         <div class="grid grid-nogutter">
           <div
             class="col-12"
-            *ngFor="let tarea of tareas; let first = first"
+            *ngFor="let todo of todos; let first = first"
             class="col-12"
           >
             <app-todo-item
               class="mt-2"
-              [tarea]="tarea"
+              [todo]="todo"
               [first]="first"
-              (tareaEliminada)="handleNotifyTareaEliminada($event)"
-              (tareaModificada)="handleNotifyTareaModificada($event)"
-              (tareaTerminada)="handleNotifyTareaTerminada($event)"
+              (todoDeleted)="handleNotifyTodoDeleted($event)"
+              (todoUpdated)="handleNotifyTodoUpdated($event)"
+              (todoIsCompleted)="handleNotifyTodoIsCompleted($event)"
             ></app-todo-item>
           </div>
         </div>
