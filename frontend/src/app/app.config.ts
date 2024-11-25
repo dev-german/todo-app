@@ -9,6 +9,7 @@ import { environment } from './environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth'
 import { AngularFireModule } from '@angular/fire/compat'
 
+import {provideHttpClient} from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(ReactiveFormsModule),
     importProvidersFrom(AngularFireModule.initializeApp(environment.firebase)),
-    importProvidersFrom(AngularFireAuthModule)
+    importProvidersFrom(AngularFireAuthModule),
+    provideHttpClient()
   ]
 };
