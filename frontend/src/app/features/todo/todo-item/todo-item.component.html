@@ -6,8 +6,8 @@
     <p-checkbox
       [binary]="true"
       inputId="binary"
-      [(ngModel)]="tarea.terminado"
-      (onChange)="marcaTerminado(tarea.id!)"
+      [(ngModel)]="todo.isCompleted"
+      (onChange)="markAsDone()"
     />
   </div>
   <div
@@ -18,26 +18,26 @@
     >
       <div>
         <div
-          #nombreTarea
+          #todoName
           tabindex="-1"
-          [contentEditable]="tareaEditable"
+          [contentEditable]="editableTodo"
           class="text-md font-medium text-700 mt-2"
-          [ngClass]="{ strikethrough: tarea.terminado }" 
-          (keydown.escape)="cancelarModificacion()"
-          (keydown.enter)="modificarTarea(tarea.id!, $event)"
+          [ngClass]="{ strikethrough: todo.isCompleted }"
+          (keydown.escape)="cancelModify()"
+          (keydown.enter)="updateTask($event)"
         >
-          {{ tarea.nombre }}
+          {{ todo.description }}
         </div>
       </div>
     </div>
     <div class="flex flex-row align-items-end gap-1">
-      @if(tareaEditable){
+      @if(editableTodo){
       <p-button
         icon="pi pi-save"
         [rounded]="true"
         [outlined]="true"
         size="small"
-        (onClick)="modificarTarea(tarea.id!)"
+        (onClick)="updateTask()"
       />
       <p-button
         icon="pi pi-times"
@@ -45,7 +45,7 @@
         [outlined]="true"
         size="small"
         severity="danger"
-        (onClick)="cancelarModificacion()"
+        (onClick)="cancelModify()"
       />
       } @else {
       <p-button
@@ -53,7 +53,7 @@
         [rounded]="true"
         [outlined]="true"
         size="small"
-        (onClick)="marcaEditable(tarea.id!)"
+        (onClick)="markAsEditable()"
       />
       <p-button
         icon="pi pi-trash"
@@ -61,7 +61,7 @@
         [outlined]="true"
         size="small"
         severity="danger"
-        (onClick)="eliminarTarea()"
+        (onClick)="deleteTask()"
       />
       }
     </div>

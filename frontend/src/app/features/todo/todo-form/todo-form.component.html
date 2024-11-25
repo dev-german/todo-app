@@ -1,14 +1,14 @@
-<form [formGroup]="tareaForm">
+<form [formGroup]="todoForm">
   <div class="grid mt-2">
     <input
       class="w-full"
-      #inputNuevaTarea
+      #inputNewTodo
       id="tarea"
       pInputText
       type="text"
-      [placeholder]="placeholderTarea"
-      (keydown.enter)="agregarTarea()"
-      formControlName="tarea"
+      placeholder="Agrega una tarea..."
+      (keydown.enter)="newTask()"
+      formControlName="todo"
     />
   </div>
 
@@ -16,8 +16,8 @@
     <p-button
       type="button"
       label="Agregar tarea"
-      (click)="agregarTarea()"
-      [disabled]="!tareaForm.valid"
+      (click)="newTask()"
+      [disabled]="!todoForm.valid"
       icon="pi pi-check"
       [rounded]="true"
       [outlined]="true"
