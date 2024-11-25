@@ -18,9 +18,13 @@
         </small>
       </div>
 
-      <p-button type="submit" label="Iniciar Sesión" [disabled]="loginForm.invalid"></p-button>
-      <div *ngIf="errorMessage" class="p-error">{{ errorMessage }}</div>
+      <div class="p-field p-fluid">
+        <p-button type="submit" label="Iniciar Sesión" [disabled]="loginForm.invalid"></p-button><br>
+        <p-button label="Registrarse" (click)="gotoSignin()" [link]="true"></p-button>
+
+      </div>
     </form>
   </div>
 </div>
 
+<p-toast position="bottom-center"></p-toast>
