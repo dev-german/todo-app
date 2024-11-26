@@ -23,17 +23,22 @@ export class TodoAppComponent implements OnInit {
   messageService = inject(MessageService);
   todoService = inject(TodoService);
   todos: Todo[] = []
-  email = 'mateo@granados.com'
+  email: string = localStorage.getItem("usuario")?.toString() || "";
 
   ngOnInit(): void {
     this.findTodosByEmail(this.email);
   }
 
   private findTodosByEmail(email: string){
-    this.todoService.findByEmail(email).subscribe(
+    /*this.todoService.getTasksByUser(email).subscribe(
       todos => {
         this.todos = todos
       });
+    */
+    this.todoService.findByEmail(email).subscribe(
+      todos => {
+      this.todos = todos
+    });
   }
 
   addTodo(todoRegistrationRequest: TodoRegistrationRequest){
