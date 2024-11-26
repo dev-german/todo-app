@@ -1,3 +1,31 @@
+<!--form [formGroup]="todoForm">
+  <div class="grid mt-2">
+    <input
+      class="w-full"
+      #inputNewTodo
+      id="tarea"
+      pInputText
+      type="text"
+      placeholder="Agrega una tarea..."
+      (keydown.enter)="newTask()"
+      formControlName="todo"
+    />
+  </div>
+
+  <div class="grid mt-2 justify-content-end">
+    <p-button
+      type="button"
+      label="Agregar tarea"
+      (click)="newTask()"
+      [disabled]="!todoForm.valid"
+      icon="pi pi-check"
+      [rounded]="true"
+      [outlined]="true"
+      size="small"
+    ></p-button>
+  </div>
+</form-->
+
 <div class="grid">
   <div class="col-8 col-offset-2">
     <p-dataView #dv [value]="todos" emptyMessage="No hay tareas">
