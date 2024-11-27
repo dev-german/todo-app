@@ -3,6 +3,9 @@ import { TodoFormComponent } from "../todo-form/todo-form.component";
 import { TodoListComponent } from "../todo-list/todo-list.component";
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { LogoutComponent } from '../../user/logout/logout.component';
+import { InfoComponent } from "../../user/info/info.component";
+
 import {TodoService} from '../../../core/services/todo/todo.service';
 import {Todo} from '../../../core/models/todo/todo';
 import {TodoRegistrationRequest} from '../../../core/models/todo/todo-registration-request';
@@ -11,7 +14,7 @@ import {TodoUpdateRequest} from '../../../core/models/todo/todo-update-request';
 @Component({
   selector: 'app-todo-app',
   standalone: true,
-  imports: [TodoFormComponent, TodoListComponent, ToastModule],
+  imports: [TodoFormComponent, TodoListComponent, ToastModule, LogoutComponent, InfoComponent],
   providers: [MessageService],
   templateUrl: './todo-app.component.html',
   styleUrl: './todo-app.component.css'
@@ -20,7 +23,7 @@ export class TodoAppComponent implements OnInit {
   messageService = inject(MessageService);
   todoService = inject(TodoService);
   todos: Todo[] = []
-  email = 'mateo@granados.com'
+  email: string = localStorage.getItem("usuario")?.toString() || "";
 
   ngOnInit(): void {
     this.findTodosByEmail(this.email);

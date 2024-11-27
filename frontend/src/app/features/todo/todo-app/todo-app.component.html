@@ -1,4 +1,10 @@
 <div class="grid">
+  <div class="col-5 col-offset-2">
+    <app-info></app-info>
+  </div>
+  <div class="col-3 align-right">
+    <app-logout></app-logout>
+  </div>
   <div class="col-8 col-offset-2">
     <app-todo-form (todoCreated)="addTodo($event)"> </app-todo-form>
   </div>
