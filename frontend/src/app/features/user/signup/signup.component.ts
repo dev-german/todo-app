@@ -9,6 +9,8 @@ import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import {AvatarModule} from 'primeng/avatar';
+import {MessageModule} from 'primeng/message';
 @Component({
   selector: 'app-signup',
   standalone: true,
@@ -18,7 +20,9 @@ import { MessageService } from 'primeng/api';
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    AvatarModule,
+    MessageModule
   ],
   providers:[
     MessageService
@@ -28,10 +32,7 @@ import { MessageService } from 'primeng/api';
 })
 export class SignupComponent {
   messageService = inject(MessageService);
-
   signupForm: FormGroup;
-  errorMessage: string | null | undefined= null;
-  successMessage: string | null | undefined = null;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.signupForm = this.fb.group({

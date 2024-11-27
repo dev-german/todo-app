@@ -1,40 +1,13 @@
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f5f5f5;
+.right-container {
+  background-image: linear-gradient(to right, #2b6cb0, #6b46c1);
 }
 
-.login-card {
-  width: 400px;
-  padding: 2rem;
-  background: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+.right-container .background {
+  object-fit: cover;
+  height: 100%;
+  max-width: 100%;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.p-field {
-  margin-bottom: 1.5rem;
-}
-
-.p-field label {
+.field small {
   display: block;
-  margin-bottom: 0.5rem;
-}
-
-.p-error {
-  color: #f44336;
-  font-size: 0.875rem;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5rem;
 }

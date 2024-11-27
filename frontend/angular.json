@@ -21,12 +21,20 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
+              {
+                "input": "src/assets/themes/lara-light-blue.css",
+                "bundleName": "lara-light-blue",
+                "inject": false
+              },
+              {
+                "input": "src/assets/themes/lara-dark-blue.css",
+                "bundleName": "lara-dark-blue",
+                "inject": false
+              },
               "src/styles.css"
             ],
             "scripts": []
@@ -79,10 +87,8 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "src/styles.css"
