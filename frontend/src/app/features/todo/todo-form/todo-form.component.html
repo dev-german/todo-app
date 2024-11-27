@@ -7,9 +7,31 @@
       pInputText
       type="text"
       placeholder="Agrega una tarea..."
-      (keydown.enter)="newTask()"
       formControlName="todo"
+      required
     />
+  </div>
+  <div class="grid mt-2">
+    <p-dropdown 
+        id="category" 
+        [options]="categories"  
+        [(ngModel)]="categorySelected"
+        placeholder="Seleccione una categoria" 
+        name="categoryd" 
+        formControlName="category"
+        required>
+    </p-dropdown>
+  </div>
+  <div class="grid mt-2">
+    <p-dropdown 
+        id="priority" 
+        [options]="priorities"  
+        [(ngModel)]="prioritySelected" 
+        placeholder="Seleccione una prioridad" 
+        name="priority" 
+        formControlName="priority"
+        required>
+    </p-dropdown>
   </div>
 
   <div class="grid mt-2 justify-content-end">
@@ -17,11 +39,11 @@
       type="button"
       label="Agregar tarea"
       (click)="newTask()"
-      [disabled]="!todoForm.valid"
       icon="pi pi-check"
       [rounded]="true"
       [outlined]="true"
       size="small"
     ></p-button>
   </div>
+  
 </form>
