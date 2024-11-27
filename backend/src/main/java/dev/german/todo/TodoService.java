@@ -35,7 +35,7 @@ public class TodoService {
     }
 
     public List<TodoResponse> getTodosByEmail(String email) {
-        return todoRepository.findByEmail(email)
+        return todoRepository.findByEmailOrderByCreatedAtDesc(email)
                 .stream()
                 .map(todoResponseMapper::todoToTodoResponse)
                 .collect(Collectors.toList());

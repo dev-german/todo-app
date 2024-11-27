@@ -1,4 +1,5 @@
 <div class="signup-container">
+  <div class="signup-card">
   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
     <h2>Registrar</h2>
     <div class="p-field p-fluid">
@@ -11,7 +12,7 @@
 
     <div class="p-field p-fluid">
       <label for="password">Contraseña</label>
-      <p-password inputId="password" formControlName="password" feedback="false"></p-password>
+      <p-password id="password" inputId="password" formControlName="password" feedback="false"></p-password>
       <small *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="p-error">
         La contraseña es requerida y debe tener al menos 6 caracteres.
       </small>
@@ -19,7 +20,7 @@
 
     <div class="p-field p-fluid">
       <label for="confirmPassword">Confirmar Contraseña</label>
-      <p-password inputId="confirmPassword" formControlName="confirmPassword" feedback="false"></p-password>
+      <p-password id="confirmPassword" inputId="confirmPassword" formControlName="confirmPassword" feedback="false"></p-password>
       <small *ngIf="signupForm.errors?.['mismatch'] && signupForm.get('confirmPassword')?.touched" class="p-error">
         Las contraseñas no coinciden.
       </small>
@@ -31,6 +32,7 @@
     </div>
 
   </form>
+  </div>
 </div>
 
 <p-toast position="bottom-center"></p-toast>

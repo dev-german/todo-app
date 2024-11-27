@@ -6,18 +6,18 @@
     <app-logout></app-logout>
   </div>
   <div class="col-8 col-offset-2">
-    <app-todo-form (todoCreated)="addTodo($event)"> </app-todo-form>
+    <app-todo-form (todoCreated)="addTodo($event)"></app-todo-form>
   </div>
 </div>
 <div class="grid mt-2">
-  <div class="col-12">
+  <div pAnimateOnScroll enterClass="flipup" leaveClass="fadeout" class="animation-duration-1000 animation-ease-in-out col-12 ">
     <app-todo-list
-    [todos]="todos"
-    (notifyTodoDeleted) = "handleTodoDeleted($event)"
-    (notifyTodoUpdated) = "handleTodoUpdated($event)"
-    (notifyTodoIsCompleted) = "handleTodoIsCompleted($event)"
+      [todos]="todos"
+      (notifyTodoDeleted)="handleTodoDeleted($event)"
+      (notifyTodoUpdated)="handleTodoUpdated($event)"
+      (notifyTodoIsCompleted)="handleTodoIsCompleted($event)"
     >
-  </app-todo-list>
+    </app-todo-list>
   </div>
 </div>
 <p-toast position="bottom-center"></p-toast>

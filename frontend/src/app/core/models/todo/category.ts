@@ -1,5 +1,5 @@
 export enum Category {
-  WORK,
-  PERSONAL,
-  HOME
+  WORK = 'WORK',
+  PERSONAL = 'PERSONAL',
+  HOME = 'HOME'
 }

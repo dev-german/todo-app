@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
-import firebase from 'firebase/compat/app';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import {Injectable} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +14,10 @@ export class AuthService {
       const userCredentials = await this.afAuth.signInWithEmailAndPassword(email, password);
       const token = await userCredentials.user?.getIdToken();
       console.log(userCredentials)
-      return { "state": true, "token": token };
+      return {"state": true, "token": token};
     } catch (error) {
-      return { "state": false, "error": error?.toString() };
+      return {"state": false, "error": error?.toString()};
     }
-
-
   }
 
   async logout() {

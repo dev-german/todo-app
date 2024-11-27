@@ -1,9 +1,17 @@
 <button pButton pRipple type="button"
-      label="Cerrar Sesión"
-      (click)="onLogout()"
-      icon="pi pi-sign-out"
-      [rounded]="true"
-      [outlined]="true"
-      size="small"
-       class="p-button-danger">
-    </button>
+        label="Cerrar Sesión"
+        (click)="confirmLogOut()"
+        icon="pi pi-sign-out"
+        [rounded]="true"
+        [outlined]="true"
+        size="small"
+        class="p-button-danger">
+</button>
+
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+  acceptLabel="Cerrar Sesión"
+  acceptButtonStyleClass="p-button-danger"
+  rejectLabel="Cancel"
+></p-confirmDialog>

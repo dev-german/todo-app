@@ -10,7 +10,7 @@
     </parent>
     <groupId>dev.germane</groupId>
     <artifactId>todo-api</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>todo-app</name>
     <description>backend api for todo-app</description>
     <url/>

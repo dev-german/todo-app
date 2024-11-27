@@ -10,11 +10,12 @@ import {TodoService} from '../../../core/services/todo/todo.service';
 import {Todo} from '../../../core/models/todo/todo';
 import {TodoRegistrationRequest} from '../../../core/models/todo/todo-registration-request';
 import {TodoUpdateRequest} from '../../../core/models/todo/todo-update-request';
+import {AnimateOnScrollModule} from 'primeng/animateonscroll';
 
 @Component({
   selector: 'app-todo-app',
   standalone: true,
-  imports: [TodoFormComponent, TodoListComponent, ToastModule, LogoutComponent, InfoComponent],
+  imports: [TodoFormComponent, TodoListComponent, ToastModule, LogoutComponent, InfoComponent, AnimateOnScrollModule ],
   providers: [MessageService],
   templateUrl: './todo-app.component.html',
   styleUrl: './todo-app.component.css'
@@ -40,11 +41,11 @@ export class TodoAppComponent implements OnInit {
     todoRegistrationRequest.email = this.email
     this.todoService.save(todoRegistrationRequest).subscribe({
       next: (createdTodo) => {
-        this.todos.push(createdTodo)
+        this.todos = [createdTodo, ...this.todos ]
         this.messageService.add({
           severity: 'success',
           summary: 'Task created',
-          detail: `Task ${todoRegistrationRequest.description} saved successfully`,
+          detail: `Task ${createdTodo.description} saved successfully`,
         });
       }
     })

@@ -1,77 +1,95 @@
 <div
-  class="flex flex-column sm:flex-row sm:align-items-center p-1 gap-2"
+  class="  p-1"
   [ngClass]="{ 'border-top-1 surface-border': !first }"
 >
-  <div class="md:w-2rem relative">
-    <p-checkbox
-      [binary]="true"
-      inputId="binary"
-      [(ngModel)]="todo.isCompleted"
-      (onChange)="markAsDone()"
-    />
-  </div>
-  <div
-    class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-1"
-  >
-    <div style="width: 45%;"
-      class="flex flex-row md:flex-column justify-content-between align-items-start gap-2"
-    >
-      <div >
-        <div 
-          #todoName
-          tabindex="-1"
-          [contentEditable]="editableTodo"
-          class="text-md font-medium text-700 mt-2"
-          [ngClass]="{ strikethrough: todo.isCompleted }"
-          (keydown.escape)="cancelModify()"
-          (keydown.enter)="updateTask($event)"
-        >
-          {{ todo.description }} 
-        </div>
+  <div class="grid align-items-center" [ngClass]="{ strikethrough: todo.isCompleted }">
+    <div class="col">
+      <p-checkbox
+        [binary]="true"
+        inputId="binary"
+        [(ngModel)]="todo.isCompleted"
+        (onChange)="markAsDone()"
+      />
+    </div>
+    <div class="col-3">
+      <div
+        #todoName
+        tabindex="-1"
+        [contentEditable]="editableTodo"
+        class="text-md font-medium text-700"
+        (keydown.escape)="cancelModify()"
+        (keydown.enter)="updateTask(todoName.innerText!)"
+      >
+        {{ todo.description }}
       </div>
     </div>
-    <div style="width: 15%;">
-      {{ todo.category }} 
-    </div>
-    <div style="width: 15%;">
-      {{ todo.priority }} 
-    </div>
-    <div style="width: 10%;">
-      {{ todo.isCompleted }} 
-    </div>
-    <div class="flex flex-row align-items-end gap-1">
-      @if(editableTodo){
-      <p-button
-        icon="pi pi-save"
-        [rounded]="true"
-        [outlined]="true"
-        size="small"
-        (onClick)="updateTask()"
-      />
-      <p-button
-        icon="pi pi-times"
-        [rounded]="true"
-        [outlined]="true"
-        size="small"
-        severity="danger"
-        (onClick)="cancelModify()"
-      />
+    <div class="col-2">
+      @if (editableTodo) {
+        <p-dropdown
+          class="w-full"
+          id="category"
+          [options]="categories"
+          placeholder="Seleccione una categoria"
+          name="category"
+          [(ngModel)]="todo.category">
+        </p-dropdown>
       } @else {
-      <p-button
-        icon="pi pi-pencil"
-        [rounded]="true"
-        [outlined]="true"
-        size="small"
-        (onClick)="markAsEditable()"
-      />
-      <p-button
-        icon="pi pi-trash"
-        [rounded]="true"
-        [outlined]="true"
-        size="small"
-        severity="danger"
-        (onClick)="deleteTask()"
-      />
+        {{ todo.category }}
+      }
+
+    </div>
+    <div class="col">
+      @if (editableTodo) {
+        <p-dropdown
+          class="w-full"
+          id="priority"
+          [options]="priorities"
+          placeholder="Seleccione una prioridad"
+          name="priority"
+          [(ngModel)]="todo.priority">
+        </p-dropdown>
+      } @else {
+        {{ todo.priority }}
+      }
+    </div>
+    <div class="col-2">
+      {{ todo.createdAt | date: "HH:mm:ss" }}
+    </div>
+    <div class="col-2 text-right">
+      @if (editableTodo) {
+        <p-button
+          class="pr-1"
+          icon="pi pi-save"
+          [rounded]="true"
+          [outlined]="true"
+          size="small"
+          (onClick)="updateTask(todoName.innerText!)"
+        />
+        <p-button
+          icon="pi pi-times"
+          [rounded]="true"
+          [outlined]="true"
+          size="small"
+          severity="danger"
+          (onClick)="cancelModify()"
+        />
+      } @else {
+        <p-button
+          class="pr-1"
+          icon="pi pi-pencil"
+          [rounded]="true"
+          [outlined]="true"
+          size="small"
+          (onClick)="markAsEditable()"
+        />
+        <p-button
+          icon="pi pi-trash"
+          [rounded]="true"
+          [outlined]="true"
+          size="small"
+          severity="danger"
+          (onClick)="deleteTask()"
+        />
       }
     </div>
   </div>

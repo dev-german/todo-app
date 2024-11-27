@@ -1,24 +1,23 @@
 <div class="grid">
   <div class="col-8 col-offset-2">
-    <p-dataView #dv [value]="todos" emptyMessage="No hay tareas">
-      <ng-template pTemplate="list" let-todos>
-        <div class="grid grid-nogutter">
-          <div
-            class="col-12"
-            *ngFor="let todo of todos; let first = first"
-            class="col-12"
-          >
-            <app-todo-item
-              class="mt-2"
-              [todo]="todo"
-              [first]="first"
-              (todoDeleted)="handleNotifyTodoDeleted($event)"
-              (todoUpdated)="handleNotifyTodoUpdated($event)"
-              (todoIsCompleted)="handleNotifyTodoIsCompleted($event)"
-            ></app-todo-item>
-          </div>
-        </div>
+    <p-dataView [value]="pagedTodos" emptyMessage="No hay tareas">
+      <ng-template pTemplate="list" let-pagedTodos>
+        <app-todo-item
+          *ngFor="let todo of pagedTodos; let first = first"
+          [todo]="todo"
+          [first]="first"
+          (todoDeleted)="handleNotifyTodoDeleted($event)"
+          (todoUpdated)="handleNotifyTodoUpdated($event)"
+          (todoIsCompleted)="handleNotifyTodoIsCompleted($event)"
+        ></app-todo-item>
       </ng-template>
     </p-dataView>
   </div>
 </div>
+
+<p-paginator
+  (onPageChange)="onPageChange($event)"
+  [rows]="rows"
+  [totalRecords]="totalRecords"
+  [rowsPerPageOptions]="[5, 10, 20]"/>
+
