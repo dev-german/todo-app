@@ -8,11 +8,21 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import {AvatarModule} from 'primeng/avatar';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,ButtonModule,InputTextModule,ToastModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    InputTextModule,
+    ToastModule,
+    AvatarModule,
+    MessageModule ],
   providers:[
     MessageService
   ],
@@ -21,7 +31,8 @@ import { MessageService } from 'primeng/api';
 })
 export class LoginComponent {
   messageService = inject(MessageService);
-  loginForm: FormGroup;
+  loginForm: FormGroup
+
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
