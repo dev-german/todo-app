@@ -11,11 +11,12 @@ import {Todo} from '../../../core/models/todo/todo';
 import {TodoRegistrationRequest} from '../../../core/models/todo/todo-registration-request';
 import {TodoUpdateRequest} from '../../../core/models/todo/todo-update-request';
 import {AnimateOnScrollModule} from 'primeng/animateonscroll';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-todo-app',
   standalone: true,
-  imports: [TodoFormComponent, TodoListComponent, ToastModule, LogoutComponent, InfoComponent, AnimateOnScrollModule ],
+  imports: [TodoFormComponent, TodoListComponent, ToastModule, LogoutComponent, InfoComponent, AnimateOnScrollModule,ButtonModule ],
   providers: [MessageService],
   templateUrl: './todo-app.component.html',
   styleUrl: './todo-app.component.css'
