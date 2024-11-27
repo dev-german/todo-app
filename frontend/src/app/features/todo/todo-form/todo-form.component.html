@@ -1,68 +1,86 @@
-<form [formGroup]="todoForm">
-  <div class="grid mt-2">
-    <input
-      class="w-full"
-      #inputNewTodo
-      id="tarea"
-      pInputText
-      type="text"
-      placeholder="Agrega una tarea..."
-      formControlName="todo"
-      pAutoFocus
-      [autofocus]="true"
-    />
-    <div *ngIf="todoForm.get('todo')?.dirty && todoForm.get('todo')?.invalid">
-      <small *ngIf="todoForm.get('todo')?.errors?.['required']" class="error">
-        La descripcion de la tarea es requerida
-      </small>
-    </div>
-  </div>
-  <div class="grid mt-2">
-    <p-dropdown
-      class="w-full"
-      [style]="{'width':'100%'}"
-      id="category"
-      [options]="categories"
-      placeholder="Seleccione una categoria"
-      name="category"
-      formControlName="category"
-      required>
-    </p-dropdown>
-    <div *ngIf="todoForm.get('category')?.touched && todoForm.get('category')?.invalid">
-      <small *ngIf="todoForm.get('category')?.errors?.['required']" class="error">
-        Seleccione una categoria
-      </small>
-    </div>
-  </div>
-  <div class="grid mt-2">
-    <p-dropdown
-      class="w-full"
-      [style]="{'width':'100%'}"
-      id="priority"
-      [options]="priorities"
-      placeholder="Seleccione una prioridad"
-      name="priority"
-      formControlName="priority"
-      required>
-    </p-dropdown>
-    <div *ngIf="todoForm.get('priority')?.touched && todoForm.get('priority')?.invalid">
-      <small *ngIf="todoForm.get('priority')?.errors?.['required']" class="error">
-        Seleccione una prioridad
-      </small>
-    </div>
-  </div>
+<p-button type="button"
+          label="Nueva tarea"
+          (click)="callTodoForm()"
+          icon="pi pi-plus"
+          [rounded]="true"
+          [outlined]="true"
+          size="small"
+          class="p-button-rounded p-button-primary"></p-button>
 
-  <div class="grid mt-2 justify-content-end">
-    <p-button
-      type="button"
-      label="Agregar tarea"
-      (click)="newTask()"
-      icon="pi pi-check"
-      [rounded]="true"
-      [outlined]="true"
-      size="small"
-      [disabled]="todoForm.invalid"
-    ></p-button>
-  </div>
+<p-dialog
+    header="Nueva Tarea"
+    [modal]="true"
+    [(visible)]="visibleTodoForm"
+    [style]="{ width: '45rem' }">
 
-</form>
+    <form [formGroup]="todoForm">
+      <div class="grid mt-2">
+        <input
+          class="w-full"
+          #inputNewTodo
+          id="tarea"
+          pInputText
+          type="text"
+          placeholder="Agrega una tarea..."
+          formControlName="todo"
+          pAutoFocus
+          [autofocus]="true"
+        />
+        <div *ngIf="todoForm.get('todo')?.dirty && todoForm.get('todo')?.invalid">
+          <small *ngIf="todoForm.get('todo')?.errors?.['required']" class="error">
+            La descripcion de la tarea es requerida
+          </small>
+        </div>
+      </div>
+      <div class="grid mt-2">
+        <p-dropdown
+          class="w-full"
+          [style]="{'width':'100%'}"
+          id="category"
+          [options]="categories"
+          placeholder="Seleccione una categoria"
+          name="category"
+          formControlName="category" appendTo="body"
+          required>
+        </p-dropdown>
+        <div *ngIf="todoForm.get('category')?.touched && todoForm.get('category')?.invalid">
+          <small *ngIf="todoForm.get('category')?.errors?.['required']" class="error">
+            Seleccione una categoria
+          </small>
+        </div>
+      </div>
+      <div class="grid mt-2">
+        <p-dropdown
+          class="w-full"
+          [style]="{'width':'100%'}"
+          id="priority"
+          [options]="priorities"
+          placeholder="Seleccione una prioridad"
+          name="priority"
+          formControlName="priority" appendTo="body"
+          required>
+        </p-dropdown>
+        <div *ngIf="todoForm.get('priority')?.touched && todoForm.get('priority')?.invalid">
+          <small *ngIf="todoForm.get('priority')?.errors?.['required']" class="error">
+            Seleccione una prioridad
+          </small>
+        </div>
+      </div>
+
+      <div class="grid mt-2 justify-content-end">
+        <p-button
+          type="button"
+          label="Agregar tarea"
+          (click)="newTask()"
+          icon="pi pi-check"
+          [rounded]="true"
+          [outlined]="true"
+          size="small"
+          [disabled]="todoForm.invalid"
+        ></p-button>
+      </div>
+
+    </form>
+
+</p-dialog>
+

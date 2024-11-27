@@ -12,6 +12,7 @@ import {NgIf, TitleCasePipe} from '@angular/common';
 import {EnumService} from '../../../core/services/enum/enum.service';
 import {collectionGroup} from '@angular/fire/firestore';
 import {Enum} from '../../../core/models/todo/enum';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-todo-form',
@@ -24,7 +25,8 @@ import {Enum} from '../../../core/models/todo/enum';
     StyleClassModule,
     DropdownModule,
     AutoFocusModule,
-    NgIf
+    NgIf,
+    DialogModule
   ],
   templateUrl: './todo-form.component.html',
   styleUrl: './todo-form.component.css'
@@ -37,6 +39,7 @@ export class TodoFormComponent {
 
   categories: Enum [] = [];
   priorities: Enum [] = [];
+  visibleTodoForm: boolean = false
 
   constructor() {
     this.categories = this.enumService.getValuesFromEnum(Category)
@@ -66,6 +69,14 @@ export class TodoFormComponent {
       this.todoForm.markAsPristine()
       this.todoForm.markAsUntouched()
       this.inputNewTodo.nativeElement.focus()
+
+      this.visibleTodoForm = false
+
     }
+  }
+
+  callTodoForm(){
+    this.newTodo = {}
+    this.visibleTodoForm = true
   }
 }
