@@ -2,7 +2,7 @@
   class="  p-1"
   [ngClass]="{ 'border-top-1 surface-border': !first }"
 >
-  <div class="grid align-items-center" [ngClass]="{ strikethrough: todo.isCompleted }">
+  <div appHighlight class="grid align-items-center" [ngClass]="{ strikethrough: todo.isCompleted }">
     <div class="col">
       <p-checkbox
         [binary]="true"

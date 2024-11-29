@@ -17,8 +17,9 @@ export class ThemeService {
     }
   }
 
-  getCurrentTheme() {
-    return this.document.getElementById('app-theme') as HTMLLinkElement;
+  isLightTheme(){
+    let currentTheme = this.document.getElementById('app-theme') as HTMLLinkElement
+    return currentTheme.href.toString().includes('light');
   }
 
 }

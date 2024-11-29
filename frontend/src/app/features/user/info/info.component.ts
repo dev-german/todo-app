@@ -17,8 +17,7 @@ export class InfoComponent {
   }
 
   isCurrentThemeLight(){
-    let currentTheme = this.themeService.getCurrentTheme();
-    return currentTheme.href.toString().includes('light');
+    return this.themeService.isLightTheme();
   }
 
 }

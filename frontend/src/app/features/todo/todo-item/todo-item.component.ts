@@ -13,6 +13,7 @@ import {Category} from '../../../core/models/todo/category';
 import {Priority} from '../../../core/models/todo/priority';
 import {Enum} from '../../../core/models/todo/enum';
 import {EnumService} from '../../../core/services/enum/enum.service';
+import {HighlightDirective} from '../../../shared/directives/highlight.directive';
 
 @Component({
   selector: 'app-todo-item',
@@ -22,7 +23,10 @@ import {EnumService} from '../../../core/services/enum/enum.service';
     CommonModule,
     ButtonModule,
     DataViewModule,
-    ConfirmDialogModule, DropdownModule, ReactiveFormsModule
+    ConfirmDialogModule,
+    DropdownModule,
+    ReactiveFormsModule,
+    HighlightDirective
   ],
   providers: [ConfirmationService],
   templateUrl: './todo-item.component.html',
