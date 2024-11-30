@@ -34,7 +34,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-todo ; let first = first>
        
-        <tr >
+        <tr appHighlight >
         
           <td>
             <p-checkbox
@@ -46,7 +46,7 @@
           </td>  
           <td> 
                      
-            <div
+            <div 
             #todoName
             tabindex="-1"
             [contentEditable]="editableTodo"
@@ -60,7 +60,7 @@
             
         </td>
           <td>
-            <div [ngClass]="{ strikethrough: todo.isCompleted }">
+            <div  [ngClass]="{ strikethrough: todo.isCompleted }">
             @if (editableTodo) {
                 <p-dropdown
                   class="w-full"
@@ -76,7 +76,7 @@
             </div>
            </td>
           <td>
-            <div [ngClass]="{ strikethrough: todo.isCompleted }">
+            <div  [ngClass]="{ strikethrough: todo.isCompleted }">
             @if (editableTodo) {
                 <p-dropdown
                   class="w-full"
@@ -92,7 +92,7 @@
             </div>
           </td>
           <td>
-            <div [ngClass]="{ strikethrough: todo.isCompleted }">
+            <div  [ngClass]="{ strikethrough: todo.isCompleted }">
                 {{todo.createdAt | date: "dd/mm/yyyy HH:mm:ss"}}
             </div>
            
