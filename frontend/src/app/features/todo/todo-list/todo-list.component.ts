@@ -7,6 +7,7 @@ import { TagModule } from 'primeng/tag';
 import {Todo} from '../../../core/models/todo/todo';
 import {TodoUpdateRequest} from '../../../core/models/todo/todo-update-request';
 import {PaginatorModule} from 'primeng/paginator';
+import { TodoItemTableComponent } from '../todo-item-table/todo-item-table.component';
 
 
 @Component({
@@ -18,7 +19,8 @@ import {PaginatorModule} from 'primeng/paginator';
     ButtonModule,
     DataViewModule,
     TagModule,
-    PaginatorModule
+    PaginatorModule,
+    TodoItemTableComponent
   ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.css'
