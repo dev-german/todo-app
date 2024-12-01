@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+cors:
+  allowed-origins: "*"
+  allowed-methods: "*"
+  allowed-headers: "*"
+  exposed-headers: "*"
+
+spring:
+  datasource:
+    url: jdbc:postgresql://awseb-e-ypxnnqrxt4-stack-awsebrdsdatabase-9a0mzps7hvrc.cbaoca8guymz.us-east-1.rds.amazonaws.com:5432/todo
+    username: todo
+    password: todo#$TasF3$%543
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  main:
+    web-application-type: servlet
