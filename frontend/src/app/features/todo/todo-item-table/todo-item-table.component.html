@@ -41,7 +41,7 @@
             [binary]="true"
             inputId="binary"
             [(ngModel)]="todo.isCompleted"
-            (onChange)="markAsDone()"
+            (onChange)="markAsDone(todo)"
              />
           </td>  
           <td> 
@@ -49,7 +49,7 @@
             <div 
             #todoName
             tabindex="-1"
-            [contentEditable]="editableTodo"
+            [contentEditable]="editingTodoId === todo.id"
             class="text-md font-medium text-700"
             (keydown.escape)="cancelModify()"
             (keydown.enter)="updateTask(todo,todoName.innerText!)"
@@ -57,12 +57,13 @@
           >
             {{ todo.description }}
             </div>
-            
+           
         </td>
           <td>
             <div  [ngClass]="{ strikethrough: todo.isCompleted }">
-            @if (editableTodo) {
+           
                 <p-dropdown
+                  *ngIf="editingTodoId === todo.id"
                   class="w-full"
                   id="category"
                   [options]="categories"
@@ -70,15 +71,15 @@
                   name="category"
                   [(ngModel)]="todo.category">
                 </p-dropdown>
-              } @else {
-                {{ todo.category }}
-              }
+            
+              <span *ngIf="editingTodoId !== todo.id">{{ todo.category }}</span>
             </div>
            </td>
           <td>
             <div  [ngClass]="{ strikethrough: todo.isCompleted }">
-            @if (editableTodo) {
+           
                 <p-dropdown
+                  *ngIf="editingTodoId === todo.id"
                   class="w-full"
                   id="priority"
                   [options]="priorities"
@@ -86,9 +87,8 @@
                   name="priority"
                   [(ngModel)]="todo.priority">
                 </p-dropdown>
-              } @else {
-                {{ todo.priority }}
-              }
+             
+                <span *ngIf="editingTodoId !== todo.id">{{ todo.priority }}</span>
             </div>
           </td>
           <td>
@@ -99,8 +99,9 @@
         </td>
           <td>
             <div>
-                @if (editableTodo) {
+                
                     <p-button
+                      *ngIf="editingTodoId === todo.id"
                       class="pr-1"
                       icon="pi pi-save"
                       [rounded]="true"
@@ -109,6 +110,7 @@
                       (onClick)="updateTask(todo,todoName.innerText!)"
                     />
                     <p-button
+                      *ngIf="editingTodoId === todo.id"
                       icon="pi pi-times"
                       [rounded]="true"
                       [outlined]="true"
@@ -116,16 +118,18 @@
                       severity="danger"
                       (onClick)="cancelModify()"
                     />
-                  } @else {
+                  
                     <p-button
+                      *ngIf="editingTodoId !== todo.id"
                       class="pr-1"
                       icon="pi pi-pencil"
                       [rounded]="true"
                       [outlined]="true"
                       size="small"
-                      (onClick)="markAsEditable()"
+                      (onClick)="markAsEditable(todo)"
                     />
                     <p-button
+                     *ngIf="editingTodoId !== todo.id"
                       icon="pi pi-trash"
                       [rounded]="true"
                       [outlined]="true"
@@ -133,7 +137,7 @@
                       severity="danger"
                       (onClick)="deleteTask(todo)"
                     />
-                  }
+                  
             </div>
            
           </td>

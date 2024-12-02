@@ -50,6 +50,7 @@ export class TodoItemTableComponent {
   @Output() todoIsCompleted = new EventEmitter<TodoUpdateRequest>()
   todoUpdateRequest: TodoUpdateRequest = {}
   editableTodo = false
+  editingTodoId: number | undefined | null = null;
  
   @Input() pagedTodos: Todo[] = []; 
   @Input() todos: Todo[] = [];
@@ -65,14 +66,15 @@ export class TodoItemTableComponent {
     this.priorities = this.enumService.getValuesFromEnum(Priority)
   }
 
-  markAsDone() {
-    this.todoUpdateRequest.id = this.todo.id
-    this.todoUpdateRequest.isCompleted = this.todo.isCompleted
+  markAsDone(todo: Todo) {
+    this.todoUpdateRequest.id = todo.id
+    this.todoUpdateRequest.isCompleted = todo.isCompleted
     this.todoIsCompleted.emit(this.todoUpdateRequest);
     this.todoUpdateRequest = {}
   }
 
-  markAsEditable() {
+  /*markAsEditable() {
+
     this.editableTodo = true
     const div = this.todoName.nativeElement;
     div.focus();
@@ -84,6 +86,11 @@ export class TodoItemTableComponent {
     range.collapse(false);
     selection?.removeAllRanges();
     selection?.addRange(range);
+  }*/
+
+  markAsEditable(todo: Todo) {
+    this.editingTodoId = todo.id; // Establecer el ID del todo editable
+   // this.editableTodo = false
   }
 
   updateTask(todo: Todo,todoDescription?: string) {
@@ -95,11 +102,16 @@ export class TodoItemTableComponent {
     this.todoName.nativeElement.blur();
     this.todoUpdated.emit(this.todoUpdateRequest);
     this.todoUpdateRequest = {}
+    this.editingTodoId = null;
   }
 
-  cancelModify() {
+ /* cancelModify() {
     this.editableTodo = false
     this.todoName.nativeElement.blur();
+  }*/
+
+  cancelModify() {
+    this.editingTodoId = null; // Limpiar el ID de edición
   }
 
   deleteTask(todo: Todo) {
