@@ -24,7 +24,7 @@
                 </div>
               </th>
               <th pSortableColumn="priority" style="width:20%">
-                  Prioridad
+                  Prioridad 
               </th>
               <th pSortableColumn="createdAt" style="width:20%">
                   Fecha Registrado <p-sortIcon field="createdAt"/>
@@ -106,7 +106,7 @@
                       [rounded]="true"
                       [outlined]="true"
                       size="small"
-                      (onClick)="updateTask(todoName.innerText!)"
+                      (onClick)="updateTask(todo,todoName.innerText!)"
                     />
                     <p-button
                       icon="pi pi-times"
@@ -131,7 +131,7 @@
                       [outlined]="true"
                       size="small"
                       severity="danger"
-                      (onClick)="deleteTask()"
+                      (onClick)="deleteTask(todo)"
                     />
                   }
             </div>
@@ -143,3 +143,12 @@
       </ng-template>
     </p-table>  
 </div>
+
+
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+  acceptLabel="Delete"
+  acceptButtonStyleClass="p-button-danger"
+  rejectLabel="Cancel"
+></p-confirmDialog>

@@ -86,11 +86,11 @@ export class TodoItemTableComponent {
     selection?.addRange(range);
   }
 
-  updateTask(todoDescription?: string) {
-    this.todoUpdateRequest.id = this.todo.id
+  updateTask(todo: Todo,todoDescription?: string) {
+    this.todoUpdateRequest.id = todo.id
     this.todoUpdateRequest.description = todoDescription
-    this.todoUpdateRequest.category = this.todo.category
-    this.todoUpdateRequest.priority = this.todo.priority
+    this.todoUpdateRequest.category = todo.category
+    this.todoUpdateRequest.priority = todo.priority
     this.editableTodo = false
     this.todoName.nativeElement.blur();
     this.todoUpdated.emit(this.todoUpdateRequest);
@@ -102,12 +102,12 @@ export class TodoItemTableComponent {
     this.todoName.nativeElement.blur();
   }
 
-  deleteTask() {
+  deleteTask(todo: Todo) {
     this.confirmationService.confirm({
       header: 'Delete task',
-      message: `Are you sure you want to delete <strong>${this.todo.description}</strong>?`,
+      message: `Are you sure you want to delete <strong>${todo.description}</strong>?`,
       accept: () => {
-        this.todoDeleted.emit(this.todo);
+        this.todoDeleted.emit(todo);
       }
     });
   }
