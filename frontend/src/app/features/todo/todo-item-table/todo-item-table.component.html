@@ -52,7 +52,7 @@
             [contentEditable]="editableTodo"
             class="text-md font-medium text-700"
             (keydown.escape)="cancelModify()"
-            (keydown.enter)="updateTask(todoName.innerText!)"
+            (keydown.enter)="updateTask(todo,todoName.innerText!)"
             [ngClass]="{ strikethrough: todo.isCompleted }"
           >
             {{ todo.description }}
