@@ -95,6 +95,6 @@ export class TodoAppComponent implements OnInit {
         });
       }
     })
-
   }
+
 }

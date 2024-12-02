@@ -1,8 +1,8 @@
 import {Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild} from '@angular/core';
 import {ConfirmationService} from 'primeng/api';
 import {Todo} from '../../../core/models/todo/todo';
-import { TableModule } from 'primeng/table'; // Import TableModule
-import { MultiSelectModule } from 'primeng/multiselect'; // Import MultiSelectModule
+import { TableModule } from 'primeng/table';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { TagModule } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,9 +29,10 @@ import { HighlightDirective } from '../../../shared/directives/highlight.directi
     CommonModule,
     ButtonModule,
     DataViewModule,
-    ConfirmDialogModule, DropdownModule, ReactiveFormsModule,
+    ConfirmDialogModule,
+    DropdownModule,
+    ReactiveFormsModule,
     HighlightDirective
-    
   ],
   providers: [ConfirmationService],
   templateUrl: './todo-item-table.component.html',
@@ -44,19 +45,15 @@ export class TodoItemTableComponent {
 
   @ViewChild('todoName') todoName!: ElementRef;
   @Input() todo: Todo = {}
-  first = false
   @Output() todoDeleted = new EventEmitter<Todo>()
   @Output() todoUpdated = new EventEmitter<TodoUpdateRequest>()
   @Output() todoIsCompleted = new EventEmitter<TodoUpdateRequest>()
   todoUpdateRequest: TodoUpdateRequest = {}
   editableTodo = false
   editingTodoId: number | undefined | null = null;
- 
-  @Input() pagedTodos: Todo[] = []; 
+
+  @Input() pagedTodos: Todo[] = [];
   @Input() todos: Todo[] = [];
-  @Input() todos2: { label: string; value: string }[] = [{ label: "HOME", value: "HOME" },{ label: "PERSONAL", value: "PERSONAL" },{ label: "WORK", value: "WORK" }];
- 
- 
 
   categories: Enum [] = [];
   priorities: Enum [] = [];
@@ -73,24 +70,19 @@ export class TodoItemTableComponent {
     this.todoUpdateRequest = {}
   }
 
-  /*markAsEditable() {
+  markAsEditable(todo: Todo, ) {
+    this.editingTodoId = todo.id;
 
-    this.editableTodo = true
-    const div = this.todoName.nativeElement;
-    div.focus();
-
-    const selection = window.getSelection();
-    const range = document.createRange();
-
-    range.selectNodeContents(div);
-    range.collapse(false);
-    selection?.removeAllRanges();
-    selection?.addRange(range);
-  }*/
-
-  markAsEditable(todo: Todo) {
-    this.editingTodoId = todo.id; // Establecer el ID del todo editable
-   // this.editableTodo = false
+    const todoElement = document.getElementById(this.generateTodoName(todo.id!)); // Get the element by ID
+    if (todoElement) {
+      todoElement.focus();
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(todoElement);
+      range.collapse(false);
+      selection?.removeAllRanges();
+      selection?.addRange(range);
+    }
   }
 
   updateTask(todo: Todo,todoDescription?: string) {
@@ -105,13 +97,12 @@ export class TodoItemTableComponent {
     this.editingTodoId = null;
   }
 
- /* cancelModify() {
-    this.editableTodo = false
-    this.todoName.nativeElement.blur();
-  }*/
-
-  cancelModify() {
-    this.editingTodoId = null; // Limpiar el ID de edición
+  cancelModify(todo: Todo) {
+    this.editingTodoId = null;
+    const todoElement = document.getElementById(this.generateTodoName(todo.id!)); // Get the element by ID
+    if (todoElement) {
+      todoElement.blur();
+    }
   }
 
   deleteTask(todo: Todo) {
@@ -126,16 +117,17 @@ export class TodoItemTableComponent {
 
   applyCategoryFilter(selectedCategories: any[]): void {
     if (selectedCategories.length) {
-      const labelCategories = selectedCategories.map(category => category.label)
+      const labelCategories = selectedCategories.map(category => category.label.toUpperCase());
       this.pagedTodos = this.todos.filter(todo =>
         labelCategories.includes(todo.category ?? '')
       );
     } else {
       this.pagedTodos = this.todos;
     }
-  
   }
 
-  
+  generateTodoName(id: number): string {
+    return `todoName-${id}`;
+  }
 
 }

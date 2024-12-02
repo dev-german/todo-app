@@ -1,153 +1,146 @@
 <div class="col-8 col-offset-2">
-    <p-table [value]="pagedTodos" [tableStyle]="{'min-width': '60rem'}" sortMode="multiple">
-      <ng-template pTemplate="header">
-          <tr>
-            <th></th>
-              <th pSortableColumn="description" style="width:20%">
-                Tarea <p-sortIcon field="description" />
-              </th>
- 
-              <th pSortableColumn="category" style="width:20%">
-                <div class="flex align-items-center">
-                  Categoria
-                  <p-columnFilter field="category"  matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" [style]="{'margin-left':'5px', 'width': '100%'}">
-                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                    <p-multiSelect [ngModel]="value" [options]="todos2" (onChange)="applyCategoryFilter($event.value)" optionLabel="label">
-                    <ng-template let-option pTemplate="item">
+  <p-table [value]="pagedTodos" [tableStyle]="{'min-width': '60rem'}" sortMode="multiple">
+    <ng-template pTemplate="header">
+      <tr>
+        <th></th>
+        <th pSortableColumn="description" style="width:20%">
+          Tarea
+          <p-sortIcon field="description"/>
+        </th>
+        <th pSortableColumn="category" style="width:20%">
+          <div class="flex align-items-center">
+            Categoría
+            <p-columnFilter field="category" matchMode="in" display="menu" [showMatchModes]="false"
+                            [showOperator]="false" [showAddButton]="false" [showClearButton]="false"
+                            [showApplyButton]="false"
+                            [style]="{'margin-left':'5px', 'width': '100%'}">
+              <ng-template pTemplate="filter" let-value>
+                <p-multiSelect [ngModel]="value" [options]="categories" (onChange)="applyCategoryFilter($event.value)"
+                               optionLabel="label" [filter]="false" [showToggleAll]="false" [showHeader]="false">
+                  <ng-template let-option pTemplate="item">
                     <div class="inline-block vertical-align-middle">
-                    <span class="ml-1 mt-1">{{ option.label }}</span>
+                      <span class="ml-1 mt-1">{{ option.label }}</span>
                     </div>
-                    </ng-template>
-                    </p-multiSelect>
-                    </ng-template>
-                    </p-columnFilter>
-                </div>
-              </th>
-              <th pSortableColumn="priority" style="width:20%">
-                  Prioridad 
-              </th>
-              <th pSortableColumn="createdAt" style="width:20%">
-                  Fecha Registrado <p-sortIcon field="createdAt"/>
-              </th>
-              <th pSortableColumn="createdAt" style="width:20%"></th>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-todo ; let first = first>
-       
-        <tr appHighlight >
-        
-          <td>
-            <p-checkbox
+                  </ng-template>
+                </p-multiSelect>
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+        <th pSortableColumn="priority" style="width:20%">
+          Prioridad
+        </th>
+        <th pSortableColumn="createdAt" style="width:20%">
+          Fecha Registro
+          <p-sortIcon field="createdAt"/>
+        </th>
+        <th pSortableColumn="createdAt" style="width:20%"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-todo>
+      <tr appHighlight>
+        <td>
+          <p-checkbox
             [binary]="true"
             inputId="binary"
             [(ngModel)]="todo.isCompleted"
             (onChange)="markAsDone(todo)"
-             />
-          </td>  
-          <td> 
-                     
-            <div 
+          />
+        </td>
+        <td>
+          <div
             #todoName
+            [id]="generateTodoName(todo.id)"
             tabindex="-1"
             [contentEditable]="editingTodoId === todo.id"
             class="text-md font-medium text-700"
-            (keydown.escape)="cancelModify()"
+            (keydown.escape)="cancelModify(todo)"
             (keydown.enter)="updateTask(todo,todoName.innerText!)"
             [ngClass]="{ strikethrough: todo.isCompleted }"
           >
             {{ todo.description }}
-            </div>
-           
+          </div>
         </td>
-          <td>
-            <div  [ngClass]="{ strikethrough: todo.isCompleted }">
-           
-                <p-dropdown
-                  *ngIf="editingTodoId === todo.id"
-                  class="w-full"
-                  id="category"
-                  [options]="categories"
-                  placeholder="Seleccione una categoria"
-                  name="category"
-                  [(ngModel)]="todo.category">
-                </p-dropdown>
-            
-              <span *ngIf="editingTodoId !== todo.id">{{ todo.category }}</span>
-            </div>
-           </td>
-          <td>
-            <div  [ngClass]="{ strikethrough: todo.isCompleted }">
-           
-                <p-dropdown
-                  *ngIf="editingTodoId === todo.id"
-                  class="w-full"
-                  id="priority"
-                  [options]="priorities"
-                  placeholder="Seleccione una prioridad"
-                  name="priority"
-                  [(ngModel)]="todo.priority">
-                </p-dropdown>
-             
-                <span *ngIf="editingTodoId !== todo.id">{{ todo.priority }}</span>
-            </div>
-          </td>
-          <td>
-            <div  [ngClass]="{ strikethrough: todo.isCompleted }">
-                {{todo.createdAt | date: "dd/mm/yyyy HH:mm:ss"}}
-            </div>
-           
-        </td>
-          <td>
-            <div>
-                
-                    <p-button
-                      *ngIf="editingTodoId === todo.id"
-                      class="pr-1"
-                      icon="pi pi-save"
-                      [rounded]="true"
-                      [outlined]="true"
-                      size="small"
-                      (onClick)="updateTask(todo,todoName.innerText!)"
-                    />
-                    <p-button
-                      *ngIf="editingTodoId === todo.id"
-                      icon="pi pi-times"
-                      [rounded]="true"
-                      [outlined]="true"
-                      size="small"
-                      severity="danger"
-                      (onClick)="cancelModify()"
-                    />
-                  
-                    <p-button
-                      *ngIf="editingTodoId !== todo.id"
-                      class="pr-1"
-                      icon="pi pi-pencil"
-                      [rounded]="true"
-                      [outlined]="true"
-                      size="small"
-                      (onClick)="markAsEditable(todo)"
-                    />
-                    <p-button
-                     *ngIf="editingTodoId !== todo.id"
-                      icon="pi pi-trash"
-                      [rounded]="true"
-                      [outlined]="true"
-                      size="small"
-                      severity="danger"
-                      (onClick)="deleteTask(todo)"
-                    />
-                  
-            </div>
-           
-          </td>
-       
-      </tr>
-   
-      </ng-template>
-    </p-table>  
-</div>
+        <td>
+          <div [ngClass]="{ strikethrough: todo.isCompleted }">
+            <p-dropdown
+              *ngIf="editingTodoId === todo.id"
+              class="w-full"
+              id="category"
+              [options]="categories"
+              placeholder="Seleccione una categoria"
+              name="category"
+              [(ngModel)]="todo.category">
+            </p-dropdown>
 
+            <span *ngIf="editingTodoId !== todo.id">{{ todo.category }}</span>
+          </div>
+        </td>
+        <td>
+          <div [ngClass]="{ strikethrough: todo.isCompleted }">
+            <p-dropdown
+              *ngIf="editingTodoId === todo.id"
+              class="w-full"
+              id="priority"
+              [options]="priorities"
+              placeholder="Seleccione una prioridad"
+              name="priority"
+              [(ngModel)]="todo.priority">
+            </p-dropdown>
+
+            <span *ngIf="editingTodoId !== todo.id">{{ todo.priority }}</span>
+          </div>
+        </td>
+        <td>
+          <div [ngClass]="{ strikethrough: todo.isCompleted }">
+            {{ todo.createdAt | date: "dd/MM/yyyy HH:mm:ss" }}
+          </div>
+
+        </td>
+        <td>
+          <div>
+            <p-button
+              *ngIf="editingTodoId === todo.id"
+              class="pr-1"
+              icon="pi pi-save"
+              [rounded]="true"
+              [outlined]="true"
+              size="small"
+              (onClick)="updateTask(todo,todoName.innerText!)"
+            />
+            <p-button
+              *ngIf="editingTodoId === todo.id"
+              icon="pi pi-times"
+              [rounded]="true"
+              [outlined]="true"
+              size="small"
+              severity="danger"
+              (onClick)="cancelModify(todo)"
+            />
+            <p-button
+              *ngIf="editingTodoId !== todo.id"
+              class="pr-1"
+              icon="pi pi-pencil"
+              [rounded]="true"
+              [outlined]="true"
+              size="small"
+              (onClick)="markAsEditable(todo)"
+            />
+            <p-button
+              *ngIf="editingTodoId !== todo.id"
+              icon="pi pi-trash"
+              [rounded]="true"
+              [outlined]="true"
+              size="small"
+              severity="danger"
+              (onClick)="deleteTask(todo)"
+            />
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
 
 <p-confirmDialog
   header="Confirmation"

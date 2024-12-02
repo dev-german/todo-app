@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges} from '@angular/core';
-import { TodoItemComponent } from "../todo-item/todo-item.component";
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import { DataViewModule } from 'primeng/dataview';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -14,7 +13,6 @@ import { TodoItemTableComponent } from '../todo-item-table/todo-item-table.compo
   selector: 'app-todo-list',
   standalone: true,
   imports: [
-    TodoItemComponent,
     CommonModule,
     ButtonModule,
     DataViewModule,
@@ -67,4 +65,5 @@ export class TodoListComponent implements OnChanges {
   handleNotifyTodoIsCompleted(todoUpdateRequest: TodoUpdateRequest) {
     this.notifyTodoIsCompleted.emit(todoUpdateRequest);
   }
+
 }
