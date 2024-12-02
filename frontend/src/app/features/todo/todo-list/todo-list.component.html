@@ -1,4 +1,4 @@
-<div class="grid">
+<!--<div class="grid">
   <div class="col-8 col-offset-2">
     <p-dataView [value]="pagedTodos" emptyMessage="No hay tareas">
       <ng-template pTemplate="list" let-pagedTodos>
@@ -14,6 +14,16 @@
     </p-dataView>
   </div>
 </div>
+-->
+
+<app-todo-item-table
+[todos]="todos" 
+[pagedTodos]="pagedTodos"
+(todoDeleted)="handleNotifyTodoDeleted($event)"
+(todoUpdated)="handleNotifyTodoUpdated($event)"
+(todoIsCompleted)="handleNotifyTodoIsCompleted($event)"
+>
+</app-todo-item-table>
 
 <p-paginator
   (onPageChange)="onPageChange($event)"

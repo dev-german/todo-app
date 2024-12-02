@@ -5,8 +5,8 @@ export interface Todo {
 
   id?: number
   email?: string
-  category?: Category
-  priority?: Priority
+  category?: Category | undefined
+  priority?: Priority | undefined
   description?: string
   isCompleted?: boolean
   createdAt?: string
