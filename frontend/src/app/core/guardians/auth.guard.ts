@@ -18,11 +18,6 @@ export class AuthGuard implements CanActivate {
       return false;
     }else if(localStorage.getItem("token")){
       const token = localStorage.getItem("token")
-      /*
-      if(!this.authService.checkTokenValidity(token?.toString()){
-        this.authService.logout();
-        this.router.navigate(['/login']);
-      }*/
     }
     return true;
   }

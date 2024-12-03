@@ -22,9 +22,9 @@ import {MenuModule} from 'primeng/menu';
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.css'
 })
-export class LogoutComponent {
-  confirmationService = inject(ConfirmationService);
-  usuario: string = localStorage.getItem("usuario")!.toString()
+  export class LogoutComponent {
+    confirmationService = inject(ConfirmationService);
+    usuario: string = localStorage.getItem("usuario") || ''
 
   items: Array<MenuItem> = [
     {

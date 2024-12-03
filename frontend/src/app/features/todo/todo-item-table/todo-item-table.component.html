@@ -70,7 +70,9 @@
               [options]="categories"
               placeholder="Seleccione una categoria"
               name="category"
-              [(ngModel)]="todo.category">
+              [(ngModel)]="todo.category"
+              appendTo="body"
+            >
             </p-dropdown>
 
             <span *ngIf="editingTodoId !== todo.id">{{ todo.category }}</span>
@@ -85,7 +87,9 @@
               [options]="priorities"
               placeholder="Seleccione una prioridad"
               name="priority"
-              [(ngModel)]="todo.priority">
+              [(ngModel)]="todo.priority"
+              appendTo="body"
+            >
             </p-dropdown>
 
             <span *ngIf="editingTodoId !== todo.id">{{ todo.priority }}</span>
